@@ -1,8 +1,8 @@
 <template>
   <div class="painel">
     <h2 class="painel-titulo"> {{ titulo }} </h2>
-    <div class="painel-conteudo">
-    </div>
+    <slot class="painel-conteudo">
+    </slot>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .painel {
   padding: 0 auto;
   border: solid 2px grey;
@@ -20,9 +20,10 @@ export default {
   margin: 5px;
   box-shadow: 5px 5px 10px grey;
   width: 200px;
-  height: 100%;
+  height: 300px;
   vertical-align: top;
   text-align: center;
+
 }
 
 .painel .painel-titulo {
@@ -32,5 +33,12 @@ export default {
   margin: 0 0 15px 0;
   padding: 10px;
   text-transform: uppercase;
+
+  height: 50px;
+  
 }
+
+* {
+  box-shadow: 2px 2px 10px black;
+  }
 </style>

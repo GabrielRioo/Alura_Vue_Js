@@ -2,6 +2,8 @@
   <div class="corpo">
     <h1 class="centralizado">{{ titulo }}</h1>
 
+    <input class="filtro" type="search" placeholder="filtre por parte do titulo." v-on:input="filtro = $event.target.value"> 
+
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto of fotos" v-bind:key="foto">
        <Meu-Painel :titulo="foto.titulo">
@@ -22,7 +24,8 @@ export default {
   data() {
     return {
       titulo: "Alurapic",
-      fotos: []
+      fotos: [],
+      filtro:''
     };
   },
 
@@ -59,6 +62,12 @@ export default {
 
 .imagem-responsiva {
   width: 100%;
+  height: 70%;
 }
+
+.filtro {
+  display: block;
+  width: 100%;
+  }
 
 </style>
