@@ -1,33 +1,64 @@
 <template>
-  <div>
-    <h1>{{ titulo }}</h1>
+  <div class="corpo">
+    <h1 class="centralizado">{{ titulo }}</h1>
 
-    <ul>
-      <li v-for="foto of fotos" v-bind:key="foto">
-        <img v-bind:src="foto.url" v-bind:alt="foto.titulo" />
+    <ul class="lista-fotos">
+      <li class="lista-fotos-item" v-for="foto of fotos" v-bind:key="foto">
+       <Meu-Painel :titulo="foto.titulo">
+            <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo" />
+       </Meu-Painel>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Painel from './components/shared/painel/Painel.vue';
 export default {
+  components: {
+    'Meu-Painel': Painel,
+  },
+
   data() {
     return {
       titulo: "Alurapic",
-      fotos: [
-        {
-          url: "http://placehold.it/300x300",
-          titulo: "cachorro"
-        },
-        {
-          url: "http://placehold.it/300x300",
-          titulo: "Cachorrão"
-        }
-      ]
+      fotos: []
     };
+  },
+
+  created() {
+    let promise = this.$http.get("http://localhost:3000/v1/fotos");
+    promise
+      .then(res => res.json())
+      .then(
+        fotos => (this.fotos = fotos),
+        err => console.log(err)
+      );
   }
 };
 </script>
 
-<style></style>
+<style>
+.corpo {
+  font-family: Helvetica, sans-serif;
+  width: 96%;
+  margin: 0 auto;
+}
+
+.centralizado {
+  text-align: center;
+}
+
+.lista-fotos {
+  list-style: none;
+}
+
+.lista-fotos-item {
+  display: inline-block;
+}
+
+.imagem-responsiva {
+  width: 100%;
+}
+
+</style>
