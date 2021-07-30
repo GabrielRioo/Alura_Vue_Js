@@ -1,14 +1,22 @@
 <template>
   <div class="painel">
-    <h2 class="painel-titulo"> {{ titulo }} </h2>
-    <slot class="painel-conteudo">
-    </slot>
+    <h2 class="painel-titulo" v-on:dblclick="visivel = !visivel">{{ titulo }}</h2>
+    <div class="painel-conteudo" v-show="visivel">
+      <slot> </slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
- props: ['titulo']
+  props: ["titulo"],
+
+  data() {
+    return {
+      visivel: true,
+
+    }
+  }
 };
 </script>
 
@@ -20,10 +28,9 @@ export default {
   margin: 5px;
   box-shadow: 5px 5px 10px grey;
   width: 200px;
-  height: 300px;
+  /* height: 300px; */
   vertical-align: top;
   text-align: center;
-
 }
 
 .painel .painel-titulo {
@@ -35,10 +42,9 @@ export default {
   text-transform: uppercase;
 
   height: 50px;
-  
 }
 
 * {
   box-shadow: 2px 2px 10px black;
-  }
+}
 </style>
