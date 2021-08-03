@@ -1,90 +1,20 @@
 <template>
   <div class="corpo">
-    <h1 class="centralizado">{{ titulo }}</h1>
-
-    <input
-      class="filtro"
-      type="search"
-      placeholder="filtre por parte do titulo."
-      @input="filtro = $event.target.value"
-    />
-
-    <ul class="lista-fotos">
-      <li class="lista-fotos-item" v-for="foto of fotosComFiltro" v-bind:key="foto">
-        <Meu-Painel :titulo="foto.titulo">
-          <Imagem-Responsiva :url="foto.url" :titulo="foto.titulo" />
-          <!-- <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo" /> -->
-        </Meu-Painel>
-      </li>
-    </ul>
+    <router-view> </router-view>
   </div>
 </template>
 
 <script>
-import Painel from "./components/shared/painel/Painel.vue";
-import ImagemResponsiva from './components/shared/imagem-responsiva/ImagemResponsiva.vue';
-
 export default {
-  components: {
-    "Meu-Painel": Painel,
-    'Imagem-Responsiva': ImagemResponsiva,
-  },
 
-  data() {
-    return {
-      titulo: "Alurapic",
-      fotos: [],
-      filtro: "",
-    };
-  },
+}
 
-  created() {
-    let promise = this.$http.get("http://localhost:3000/v1/fotos");
-    promise
-      .then((res) => res.json())
-      .then(
-        (fotos) => (this.fotos = fotos),
-        (err) => console.log(err)
-      );
-  },
-
-  computed: {
-    fotosComFiltro() {
-      // Se tiver algo preenchido
-      if(this.filtro) {
-        let exp = new RegExp(this.filtro.trim(), 'i');
-        return this.fotos.filter(foto => exp.test(foto.titulo));
-      } else {
-        return this.fotos;
-      }
-    }
-  },
-};
 </script>
 
 <style>
-.corpo {
-  font-family: Helvetica, sans-serif;
-  width: 96%;
-  margin: 0 auto;
-}
-
-.centralizado {
-  text-align: center;
-}
-
-.lista-fotos {
-  list-style: none;
-}
-
-.lista-fotos-item {
-  display: inline-block;
-}
-
-
-
-.filtro {
-  display: block;
-  width: 100%;
-}
+  .corpo {
+    font-family: Helvetica, sans-serif;
+    width: 96%;
+    margin: 0 auto;
+  }
 </style>
